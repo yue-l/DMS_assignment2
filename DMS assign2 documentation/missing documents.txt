@@ -1,0 +1,11 @@
+User Stories
+Acceptance Tests
+Product Backlog
+Future Development
+
+
+I think for this project, we can work on how to sell this project's idea to the teaching team.
+
+Methodology: Lean. We dont need sprints, the time only allows us to finish it in one sprint (or 2 sprints 4days per sprint??).
+
+We can create an evaluation on the end product so that we can write about how to improve this project in the future.
