@@ -1,0 +1,14 @@
+Distributed Mobile Systems - Assignment 2, Android Development
+
+#1
+Create a project on Google developer
+GCM project id/sender id: 302458948242
+enabled GCM on console.developers.google.com
+then move to Credentials, and create a server key for public API access
+
+API Key/server key: AIzaSyCHy5GGOVlisKjWr52V-5Aw7Leq3xb5vPg
+
+
+#2
+installed Google Play Services into SDK
+om
