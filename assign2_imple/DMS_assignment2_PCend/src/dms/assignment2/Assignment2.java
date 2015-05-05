@@ -1,30 +1,38 @@
 package dms.assignment2;
 
-import dms.assignment2.model.ChatAccess;
-import dms.assignment2.view.ChatFrame;
-import java.io.IOException;
-import javax.swing.JFrame;
+import javax.swing.*;
 
-// Class to manage Client chat Box.
+/**
+ * application entry point, either start a server or pc client
+ *
+ * @author yl
+ */
 public class Assignment2 {
 
-    public static void main(String[] args) {
-        String server = args[0];
-        int port = 8083;
-        ChatAccess access = null;
-        try {
-            access = new ChatAccess(server, port);
-        } catch (IOException ex) {
-            System.out.println("Cannot connect to " + server + ":" + port);
-            ex.printStackTrace();
-            System.exit(0);
-        }
-        JFrame frame = new ChatFrame(access);
-        frame.setTitle("MyChatApp - connected to " + server + ":" + port);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
+    public enum Type {
+
+        SERVER, CLIENT
     }
+
+    public static void main(String[] args) {
+
+        Type initType = Type.SERVER;
+
+        Object selection = JOptionPane.showInputDialog(null, "Welcome to DMS assignment 2\nLogin as : ", "MyChatApp", JOptionPane.QUESTION_MESSAGE, null, Type.values(), initType);
+        if (selection.equals(Type.SERVER)) {
+            String[] arguments = new String[]{};
+            new MultiThreadChatServer().main(arguments);
+        } else if (selection.equals(Type.CLIENT)) {
+
+            String serverAddress;
+            do {
+                serverAddress = JOptionPane.showInputDialog("Enter the Server ip adress");
+            } while (serverAddress == null || serverAddress.split("\\.").length != 4);
+
+            String[] arguments = new String[]{serverAddress};
+            new PcClient().main(arguments);
+        }
+
+    }
+
 }

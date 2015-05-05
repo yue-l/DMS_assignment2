@@ -11,28 +11,35 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
+ * ChatAcess will notify the changes to View. This is part of Observable and
+ * Observer pattern
  *
- * @author mk29
+ * @author yue
  */
 public class ChatAccess extends Observable {
+
+    private static final String CRLF = "\r\n"; // newline
 
     private Socket socket;
     private OutputStream outputStream;
 
-    @Override
-    public void notifyObservers(Object arg) {
-        super.setChanged();
-        super.notifyObservers(arg);
-    }
-
     /**
      * Create socket, and receiving thread
+     *
+     * @param server
+     * @param port
      */
-    public ChatAccess(String server, int port) throws IOException {
-        socket = new Socket(server, port);
-        outputStream = socket.getOutputStream();
+    public ChatAccess(String server, int port) {
+        try {
+            socket = new Socket(server, port);
+            outputStream = socket.getOutputStream();
+        } catch (IOException ex) {
+            Logger.getLogger(ChatAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Thread receivingThread = new Thread() {
             @Override
@@ -52,10 +59,16 @@ public class ChatAccess extends Observable {
         receivingThread.start();
     }
 
-    private static final String CRLF = "\r\n"; // newline
+    @Override
+    public void notifyObservers(Object arg) {
+        super.setChanged();
+        super.notifyObservers(arg);
+    }
 
     /**
      * Send a line of text
+     *
+     * @param text
      */
     public void send(String text) {
         try {

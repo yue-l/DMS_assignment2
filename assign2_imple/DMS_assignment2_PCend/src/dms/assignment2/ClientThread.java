@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,15 +43,10 @@ public class ClientThread extends Thread {
             try (Scanner scan = new Scanner(is)) {
                 os = new PrintStream(clientSocket.getOutputStream());
                 String name;
-                while (true) {
+                do {
                     os.println("Enter your name.");
                     name = scan.nextLine().trim();
-                    if (name.indexOf('@') == -1) {
-                        break;
-                    } else {
-                        os.println("The name should not contain '@' character.");
-                    }
-                }
+                } while (name == null || name.charAt(0) == '@');
                 // new client               
                 os.println("Welcome " + name
                         + " to our chat room."
@@ -64,7 +60,7 @@ public class ClientThread extends Thread {
                     } catch (Exception ex) {
                         break;
                     }
-                    if (line.startsWith("/quit")) {
+                    if (line.startsWith("/quit") || this == null) {
                         break;
                     }
                     /* If the message is private sent it to the given client. */
@@ -79,10 +75,6 @@ public class ClientThread extends Thread {
                                                 && threads[i].clientName != null
                                                 && threads[i].clientName.equals(words[0])) {
                                             threads[i].os.println("<" + name + "> " + words[1]);
-                                            /*
-                                             * Echo this message to let the client know the private
-                                             * message was sent.
-                                             */
                                             this.os.println(">" + name + "> " + words[1]);
                                             break;
                                         }
@@ -100,13 +92,13 @@ public class ClientThread extends Thread {
             }
             os.close();
             clientSocket.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
         }
     }
 
     private synchronized void terminateThread(int localClientsLimit) {
         for (int i = 0; i < localClientsLimit; i++) {
-            if (threads[i].equals(this)) {
+            if (threads[i] != null && threads[i].equals(this)) {
                 threads[i] = null;
             }
         }

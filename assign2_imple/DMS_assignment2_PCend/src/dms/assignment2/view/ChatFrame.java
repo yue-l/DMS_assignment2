@@ -22,8 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 /**
+ * Extended JFrame class, responsible updating lines
  *
- * @author mk29
+ * @author yue
  */
 public class ChatFrame extends JFrame implements Observer {
 
