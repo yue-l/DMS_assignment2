@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/mk29/Yue/StudyAUT/2015/sem1/DSM/DMS_assignment2/assign2_imple/DMS_assignment2_PCend/src/dms/assignment2/model/ChatAccess.java</file>
+            <file>file:/home/mk29/Yue/StudyAUT/2015/sem1/DSM/DMS_assignment2/assign2_imple/DMS_assignment2_PCend/src/dms/assignment2/view/ChatFrame.java</file>
+            <file>file:/home/mk29/Yue/StudyAUT/2015/sem1/DSM/DMS_assignment2/assign2_imple/DMS_assignment2_PCend/src/dms/assignment2/MultiThreadChatServer.java</file>
+            <file>file:/home/mk29/Yue/StudyAUT/2015/sem1/DSM/DMS_assignment2/assign2_imple/DMS_assignment2_PCend/src/dms/assignment2/ClientThread.java</file>
+            <file>file:/home/mk29/Yue/StudyAUT/2015/sem1/DSM/DMS_assignment2/assign2_imple/DMS_assignment2_PCend/src/dms/assignment2/PcClient.java</file>
+        </group>
     </open-files>
 </project-private>
