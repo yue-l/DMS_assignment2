@@ -61,7 +61,7 @@ public class ChatRoomActivity extends Activity {
 	}
 
 	/**
-	 * inner class
+	 * inner class for updating UI thread
 	 * 
 	 * @author yl
 	 *
