@@ -1,62 +1,103 @@
 package com.dms.client;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SmsActivity extends Activity implements OnClickListener {
+public class SmsActivity extends Activity {
 
-	private EditText phone_number, msg_content;
-	private Button btnSendSMS;
+	private EditText phoneNumber;
+	private EditText smsBody;
+	private Button smsManagerBtn;
+	private Button smsSendToBtn;
+	private Button smsViewBtn;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sms_activity);
-		intializeUIelements();
+
+		phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+		smsBody = (EditText) findViewById(R.id.smsBody);
+		smsManagerBtn = (Button) findViewById(R.id.smsManager);
+		smsSendToBtn = (Button) findViewById(R.id.smsSIntent);
+		smsViewBtn = (Button) findViewById(R.id.smsVIntent);
+
+		smsManagerBtn.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				sendSmsByManager();
+			}
+		});
+
+		smsSendToBtn.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				sendSmsBySIntent();
+			}
+		});
+
+		smsViewBtn.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				sendSmsByVIntent();
+			}
+		});
+
 	}
 
-	private void intializeUIelements() {
-		phone_number = (EditText) findViewById(R.id.ETphoneNumber);
-		msg_content = (EditText) findViewById(R.id.ETmsgcontent);
-		btnSendSMS = (Button) findViewById(R.id.BtnsendSMS);
-		btnSendSMS.setOnClickListener(this);
-	}
-
-	protected void sendSMSMessage() {
-		Log.i("Send SMS", "");
-		
-		String phoneNo = phone_number.getText().toString();
-		String message = msg_content.getText().toString();
-
+	public void sendSmsByManager() {
 		try {
+			// Get the default instance of the SmsManager
 			SmsManager smsManager = SmsManager.getDefault();
-//			String SENT = "SMS SENT";
-//			PendingIntent sentPI;
-//			sentPI = PendingIntent.getBroadcast(this, 0,new Intent(SENT), 0);
-//			smsManager.sendTextMessage(phoneNo, null, message, sentPI, null);
-			smsManager.sendTextMessage(phoneNo, null, message, null, null);
-			Toast.makeText(getApplicationContext(), "SMS sent.",
-					Toast.LENGTH_LONG).show();
-		} catch (Exception e) {
+			smsManager.sendTextMessage(phoneNumber.getText().toString(), null,
+					smsBody.getText().toString(), null, null);
 			Toast.makeText(getApplicationContext(),
-					"SMS faild, please try again.", Toast.LENGTH_LONG).show();
-			e.printStackTrace();
+					"Your sms has successfully sent!", Toast.LENGTH_LONG)
+					.show();
+		} catch (Exception ex) {
+			Toast.makeText(getApplicationContext(), "Your sms has failed...",
+					Toast.LENGTH_LONG).show();
+			ex.printStackTrace();
 		}
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.BtnsendSMS:
-			sendSMSMessage();
-			break;
+	public void sendSmsBySIntent() {
+		// add the phone number in the data
+		Uri uri = Uri.parse("smsto:" + phoneNumber.getText().toString());
+
+		Intent smsSIntent = new Intent(Intent.ACTION_SENDTO, uri);
+		// add the message at the sms_body extra field
+		smsSIntent.putExtra("sms_body", smsBody.getText().toString());
+		try {
+			startActivity(smsSIntent);
+		} catch (Exception ex) {
+			Toast.makeText(SmsActivity.this, "Your sms has failed...",
+					Toast.LENGTH_LONG).show();
+			ex.printStackTrace();
 		}
+	}
+
+	public void sendSmsByVIntent() {
+
+		Intent smsVIntent = new Intent(Intent.ACTION_VIEW);
+		// prompts only sms-mms clients
+		smsVIntent.setType("vnd.android-dir/mms-sms");
+
+		// extra fields for number and message respectively
+		smsVIntent.putExtra("address", phoneNumber.getText().toString());
+		smsVIntent.putExtra("sms_body", smsBody.getText().toString());
+		try {
+			startActivity(smsVIntent);
+		} catch (Exception ex) {
+			Toast.makeText(SmsActivity.this, "Your sms has failed...",
+					Toast.LENGTH_LONG).show();
+			ex.printStackTrace();
+		}
+
 	}
 }
