@@ -11,13 +11,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ * a sms and a possible mms sending client. MMS sending still is mainly done by
+ * default ACTION_SENDTO
+ * 
+ * @author yl
+ *
+ */
 public class SmsActivity extends Activity {
 
 	private EditText phoneNumber;
 	private EditText smsBody;
 	private Button smsManagerBtn;
 	private Button smsSendToBtn;
-	private Button smsViewBtn;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,6 @@ public class SmsActivity extends Activity {
 		smsBody = (EditText) findViewById(R.id.smsBody);
 		smsManagerBtn = (Button) findViewById(R.id.smsManager);
 		smsSendToBtn = (Button) findViewById(R.id.smsSIntent);
-		smsViewBtn = (Button) findViewById(R.id.smsVIntent);
 
 		smsManagerBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
@@ -39,12 +44,6 @@ public class SmsActivity extends Activity {
 		smsSendToBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				sendSmsBySIntent();
-			}
-		});
-
-		smsViewBtn.setOnClickListener(new OnClickListener() {
-			public void onClick(View view) {
-				sendSmsByVIntent();
 			}
 		});
 
@@ -67,11 +66,9 @@ public class SmsActivity extends Activity {
 	}
 
 	public void sendSmsBySIntent() {
-		// add the phone number in the data
 		Uri uri = Uri.parse("smsto:" + phoneNumber.getText().toString());
 
 		Intent smsSIntent = new Intent(Intent.ACTION_SENDTO, uri);
-		// add the message at the sms_body extra field
 		smsSIntent.putExtra("sms_body", smsBody.getText().toString());
 		try {
 			startActivity(smsSIntent);
@@ -82,22 +79,4 @@ public class SmsActivity extends Activity {
 		}
 	}
 
-	public void sendSmsByVIntent() {
-
-		Intent smsVIntent = new Intent(Intent.ACTION_VIEW);
-		// prompts only sms-mms clients
-		smsVIntent.setType("vnd.android-dir/mms-sms");
-
-		// extra fields for number and message respectively
-		smsVIntent.putExtra("address", phoneNumber.getText().toString());
-		smsVIntent.putExtra("sms_body", smsBody.getText().toString());
-		try {
-			startActivity(smsVIntent);
-		} catch (Exception ex) {
-			Toast.makeText(SmsActivity.this, "Your sms has failed...",
-					Toast.LENGTH_LONG).show();
-			ex.printStackTrace();
-		}
-
-	}
 }

@@ -17,7 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="ex: 1234567890"
+        android:hint="ex: 02108179058"
         android:inputType="phone" />
 
     <EditText
@@ -25,7 +25,7 @@
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_marginBottom="30dp"
-        android:hint="Write your sms here...." />
+        android:hint="Write your text here...." />
 
     <Button
         android:id="@+id/smsManager"
@@ -39,10 +39,5 @@
         android:layout_height="wrap_content"
         android:text="Send the sms by SENDTO" />
 
-    <Button
-        android:id="@+id/smsVIntent"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Send the sms by VIEW" />
 
 </LinearLayout>
