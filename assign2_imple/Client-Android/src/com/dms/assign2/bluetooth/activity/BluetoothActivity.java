@@ -1,5 +1,6 @@
 package com.dms.assign2.bluetooth.activity;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +15,16 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.dms.assign2.bluetooth.business.ChatBusinessLogic;
-import com.dms.assign2.bluetooth.util.ToastUtil;
+import com.dms.assign2.bluetooth.util.BluetoothToast;
 import com.dms.client.R;
 
 /**
  * 
- * @author Marcus Pimenta
- * @email mvinicius.pimenta@gmail.com 05/10/2012 14:41:34
+ * @author yl
  */
-public class BluetoothActivity extends GenericActivity {
+public class BluetoothActivity extends Activity {
+
+	public static final String TAG = "Chat Bluetooth";
 
 	public static int MSG_TOAST = 1;
 	public static int MSG_BLUETOOTH = 2;
@@ -36,9 +38,9 @@ public class BluetoothActivity extends GenericActivity {
 	private ImageButton buttonSend;
 	private EditText editTextMessage;
 	private ListView listVewHistoric;
-	private ArrayAdapter<String> historic;
+	private ArrayAdapter<String> history;
 
-	private ToastUtil toastUtil;
+	private BluetoothToast toastUtil;
 	private ChatBusinessLogic chatBusinessLogic;
 
 	@Override
@@ -64,71 +66,12 @@ public class BluetoothActivity extends GenericActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.clean:
-			historic.clear();
-			historic.notifyDataSetChanged();
+			history.clear();
+			history.notifyDataSetChanged();
 			break;
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void settingsAttributes() {
-		toastUtil = new ToastUtil(this);
-		chatBusinessLogic = new ChatBusinessLogic(this, handler);
-	}
-
-	@Override
-	public void settingsView() {
-		editTextMessage = (EditText) findViewById(R.id.editTextMessage);
-
-		historic = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1);
-		listVewHistoric = (ListView) findViewById(R.id.listVewHistoric);
-		listVewHistoric.setAdapter(historic);
-
-		buttonSend = (ImageButton) findViewById(R.id.buttonSend);
-		buttonSend.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				String message = editTextMessage.getText().toString();
-
-				if (message.trim().length() > 0) {
-					if (chatBusinessLogic.sendMessage(message)) {
-						editTextMessage.setText("");
-
-						historic.add("I: " + message);
-						historic.notifyDataSetChanged();
-					}
-				} else {
-					toastUtil.showToast(getString(R.string.enter_message));
-				}
-			}
-		});
-
-		buttonService = (Button) findViewById(R.id.buttonService);
-		buttonService.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent discoverableIntent = new Intent(
-						BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-				discoverableIntent.putExtra(
-						BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,
-						BT_TIMER_VISIBLE);
-				startActivityForResult(discoverableIntent, BT_VISIBLE);
-			}
-		});
-
-		buttonClient = (Button) findViewById(R.id.buttonClient);
-		buttonClient.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				chatBusinessLogic.startFoundDevices();
-			}
-		});
 	}
 
 	public void inicializaBluetooth() {
@@ -156,8 +99,8 @@ public class BluetoothActivity extends GenericActivity {
 					toastUtil.showToast((String) (msg.obj));
 					break;
 				case 2:
-					historic.add((String) (msg.obj));
-					historic.notifyDataSetChanged();
+					history.add((String) (msg.obj));
+					history.notifyDataSetChanged();
 
 					listVewHistoric.requestFocus();
 					break;
@@ -196,6 +139,61 @@ public class BluetoothActivity extends GenericActivity {
 
 		chatBusinessLogic.unregisterFilter();
 		chatBusinessLogic.stopCommucanition();
+	}
+
+	private void settingsAttributes() {
+		toastUtil = new BluetoothToast(this);
+		chatBusinessLogic = new ChatBusinessLogic(this, handler);
+	}
+
+	private void settingsView() {
+		editTextMessage = (EditText) findViewById(R.id.editTextMessage);
+		history = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1);
+		listVewHistoric = (ListView) findViewById(R.id.listVewHistoric);
+		listVewHistoric.setAdapter(history);
+		buttonSend = (ImageButton) findViewById(R.id.buttonSend);
+		buttonSend.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String message = editTextMessage.getText().toString();
+
+				if (message.trim().length() > 0) {
+					if (chatBusinessLogic.sendMessage(message)) {
+						editTextMessage.setText("");
+
+						history.add("I: " + message);
+						history.notifyDataSetChanged();
+					}
+				} else {
+					toastUtil.showToast(getString(R.string.enter_message));
+				}
+			}
+		});
+
+		buttonService = (Button) findViewById(R.id.buttonService);
+		buttonService.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent discoverableIntent = new Intent(
+						BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+				discoverableIntent.putExtra(
+						BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,
+						BT_TIMER_VISIBLE);
+				startActivityForResult(discoverableIntent, BT_VISIBLE);
+			}
+		});
+
+		buttonClient = (Button) findViewById(R.id.buttonClient);
+		buttonClient.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				chatBusinessLogic.startFoundDevices();
+			}
+		});
 	}
 
 }

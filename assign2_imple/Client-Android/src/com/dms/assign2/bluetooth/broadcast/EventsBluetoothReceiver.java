@@ -11,22 +11,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.dms.assign2.bluetooth.business.IBusinessLogic.OnSearchBluetoothListener;
-import com.dms.assign2.bluetooth.util.ToastUtil;
+import com.dms.assign2.bluetooth.interfaces.OnSearchBluetoothListener;
+import com.dms.assign2.bluetooth.util.BluetoothToast;
 import com.dms.client.R;
 
 /**
  * 
- * @author Marcus Pimenta
- * @email mvinicius.pimenta@gmail.com
- * @date 19:51:50 01/06/2013
+ * @author yl
  */
 public class EventsBluetoothReceiver extends BroadcastReceiver {
 
 	private Context context;
 	private ProgressDialog progressDialog;
 
-	private ToastUtil toastUtil;
+	private BluetoothToast toastUtil;
 	private List<BluetoothDevice> devicesFound;
 	private OnSearchBluetoothListener onSearchBluetoothListener;
 
@@ -35,7 +33,7 @@ public class EventsBluetoothReceiver extends BroadcastReceiver {
 		this.context = context;
 		this.onSearchBluetoothListener = onSearchBluetoothListener;
 
-		toastUtil = new ToastUtil(context);
+		toastUtil = new BluetoothToast(context);
 		devicesFound = new ArrayList<BluetoothDevice>();
 	}
 

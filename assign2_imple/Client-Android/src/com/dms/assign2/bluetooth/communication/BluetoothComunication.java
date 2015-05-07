@@ -1,21 +1,18 @@
 package com.dms.assign2.bluetooth.communication;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.dms.assign2.bluetooth.activity.BluetoothActivity;
-import com.dms.assign2.bluetooth.util.LogUtil;
 import com.dms.client.R;
 
 /**
  * 
- * @author Marcus Pimenta
- * @email mvinicius.pimenta@gmail.com 01/11/2012 13:06:15
+ * @author yl
  */
 public class BluetoothComunication extends Thread {
 
@@ -63,8 +60,9 @@ public class BluetoothComunication extends Thread {
 				}
 			}
 		} catch (IOException e) {
-			LogUtil.e(e.getMessage());
+			// LogUtil.e(e.getMessage());
 
+			Log.e("ERROR", e.getMessage());
 			stopComunication();
 			sendHandler(BluetoothActivity.MSG_TOAST,
 					context.getString(R.string.lost_connection));
@@ -83,7 +81,8 @@ public class BluetoothComunication extends Thread {
 				return false;
 			}
 		} catch (IOException e) {
-			LogUtil.e(e.getMessage());
+			// LogUtil.e(e.getMessage());
+			Log.e("ERROR", e.getMessage());
 
 			sendHandler(BluetoothActivity.MSG_TOAST,
 					context.getString(R.string.failed_to_send_message));
@@ -111,7 +110,8 @@ public class BluetoothComunication extends Thread {
 				dataOutputStream = null;
 			}
 		} catch (IOException e) {
-			LogUtil.e(e.getMessage());
+			Log.e("ERROR", e.getMessage());
+			// LogUtil.e(e.getMessage());
 		}
 	}
 

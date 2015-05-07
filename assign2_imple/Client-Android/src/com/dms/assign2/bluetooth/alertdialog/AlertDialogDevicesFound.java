@@ -2,29 +2,31 @@ package com.dms.assign2.bluetooth.alertdialog;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
-import com.dms.assign2.bluetooth.business.IBusinessLogic.OnBluetoothDeviceSelectedListener;
+import com.dms.assign2.bluetooth.interfaces.OnBluetoothDeviceSelectedListener;
 import com.dms.client.R;
 
 /**
  * 
- * @author Marcus Pimenta
- * @email mvinicius.pimenta@gmail.com
- * @date 16:46:04 01/06/2013
+ * @author yl
  */
-public class AlertDialogDevicesFound extends AlertDialogGeneric implements
-		OnClickListener {
+public class AlertDialogDevicesFound implements OnClickListener {
+
+	protected Context context;
+	protected AlertDialog.Builder alert;
 
 	private List<BluetoothDevice> devicesFound;
 	private OnBluetoothDeviceSelectedListener onBluetoothDeviceSelectedListener;
 
 	public AlertDialogDevicesFound(Context context,
 			OnBluetoothDeviceSelectedListener onBluetoothDeviceSelectedListener) {
-		super(context);
+		this.context = context;
+		alert = new AlertDialog.Builder(context);
 
 		this.onBluetoothDeviceSelectedListener = onBluetoothDeviceSelectedListener;
 	}
@@ -51,4 +53,11 @@ public class AlertDialogDevicesFound extends AlertDialogGeneric implements
 				.onBluetoothDeviceSelected(devicesFound.get(which));
 	}
 
+	private void showAlertDialog() {
+		alert.create().show();
+	}
+
+	private void cancelAlertDialog() {
+		alert.create().cancel();
+	}
 }
