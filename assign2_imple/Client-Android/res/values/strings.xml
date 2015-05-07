@@ -7,8 +7,8 @@
     <string name="pre_connect">Please input server address</string>
     <string name="chat_room">Start Chat Room</string>
     <string name="sms_send">Send SMS</string>
-    <string name="nfc">NFCD Comm</string>
-    <string name="title_activity_nfc">NfcActivity</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_activity">BluetoothActivity</string>
     <string name="title_activity_sms">SmsActivity</string>
 
 </resources>

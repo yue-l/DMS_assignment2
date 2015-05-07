@@ -1,6 +1,10 @@
-package com.dms.client;
+package com.dms.client.chatroom;
 
+import com.dms.client.BluetoothActivity;
 import com.dms.client.R;
+import com.dms.client.R.id;
+import com.dms.client.R.layout;
+import com.dms.sms.SmsActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -48,12 +52,12 @@ public class ChatRoomInputActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		nfcBtn = (Button) findViewById(R.id.nfcBtn);
+		nfcBtn = (Button) findViewById(R.id.bluetoothBtn);
 		nfcBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getBaseContext(), NdefActivity.class);
+				Intent intent = new Intent(getBaseContext(), BluetoothActivity.class);
 				startActivity(intent);
 			}
 		});

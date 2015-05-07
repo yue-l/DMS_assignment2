@@ -15,14 +15,14 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
-public class NdefActivity extends Activity {
+public class BluetoothActivity extends Activity {
 
 	private NfcAdapter nfcAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ndef_activity);
+		setContentView(R.layout.bluetooth_activity);
 
 		PackageManager pm = this.getPackageManager();
 		// Check whether NFC is available on device

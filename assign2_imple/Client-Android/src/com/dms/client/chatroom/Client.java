@@ -1,4 +1,4 @@
-package com.dms.client;
+package com.dms.client.chatroom;
 
 import android.util.Log;
 import java.io.*;

@@ -1,4 +1,8 @@
-package com.dms.client;
+package com.dms.sms;
+
+import com.dms.client.R;
+import com.dms.client.R.id;
+import com.dms.client.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -79,4 +83,5 @@ public class SmsActivity extends Activity {
 		}
 	}
 
+	
 }

@@ -39,12 +39,12 @@
             android:text="@string/chat_room" />
 
         <Button
-            android:id="@+id/nfcBtn"
+            android:id="@+id/bluetoothBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_weight="0.62"
-            android:text="@string/nfc" />
+            android:text="@string/bluetooth" />
         
         <Button
             android:id="@+id/smsBtn"

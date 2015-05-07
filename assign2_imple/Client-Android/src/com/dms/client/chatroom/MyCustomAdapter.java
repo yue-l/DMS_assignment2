@@ -1,4 +1,4 @@
-package com.dms.client;
+package com.dms.client.chatroom;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
- 
+
 import java.util.ArrayList;
 
 import com.dms.client.R;
+import com.dms.client.R.id;
+import com.dms.client.R.layout;
  
 public class MyCustomAdapter extends BaseAdapter {
     private ArrayList<String> mListItems;

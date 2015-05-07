@@ -1,8 +1,10 @@
-package com.dms.client;
+package com.dms.client.chatroom;
 
 import java.util.ArrayList;
 
 import com.dms.client.R;
+import com.dms.client.R.id;
+import com.dms.client.R.layout;
 
 import android.app.Activity;
 import android.os.AsyncTask;
