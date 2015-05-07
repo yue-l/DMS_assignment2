@@ -1,4 +1,4 @@
-package com.dms.client.chatroom;
+package com.dms.assign2.chatroom;
 
 import java.util.ArrayList;
 

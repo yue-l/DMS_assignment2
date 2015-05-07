@@ -1,10 +1,4 @@
-package com.dms.client.chatroom;
-
-import com.dms.client.BluetoothActivity;
-import com.dms.client.R;
-import com.dms.client.R.id;
-import com.dms.client.R.layout;
-import com.dms.sms.SmsActivity;
+package com.dms.assign2.chatroom;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +7,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.dms.assign2.bluetooth.activity.BluetoothActivity;
+import com.dms.assign2.sms.SmsActivity;
+import com.dms.client.R;
 
 /**
  * 

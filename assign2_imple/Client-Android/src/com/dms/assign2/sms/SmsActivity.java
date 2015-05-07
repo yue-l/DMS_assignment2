@@ -1,4 +1,4 @@
-package com.dms.sms;
+package com.dms.assign2.sms;
 
 import com.dms.client.R;
 import com.dms.client.R.id;

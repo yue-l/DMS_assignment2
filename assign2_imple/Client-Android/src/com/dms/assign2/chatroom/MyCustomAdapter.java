@@ -1,4 +1,4 @@
-package com.dms.client.chatroom;
+package com.dms.assign2.chatroom;
 
 import android.content.Context;
 import android.view.LayoutInflater;

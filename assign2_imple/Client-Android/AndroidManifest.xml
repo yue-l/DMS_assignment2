@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dms.client"
     android:versionCode="1"
@@ -10,12 +9,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-feature
-        android:name="android.hardware.nfc"
-        android:required="true" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.dms.client.chatroom.ChatRoomInputActivity"
+            android:name="com.dms.assign2.chatroom.ChatRoomInputActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,16 +28,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dms.client.chatroom.ChatRoomActivity"
-            android:label="@string/app_name" >
+            android:name="com.dms.assign2.chatroom.ChatRoomActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".BluetoothActivity"
-            android:label="@string/bluetooth_activity" >
+            android:name="com.dms.assign2.bluetooth.activity.BluetoothActivity"
+            android:label="@string/bluetooth_activity"
+            android:screenOrientation="portrait" >
+            
         </activity>
         <activity
-            android:name="SmsActivity"
-            android:label="@string/title_activity_sms" >
+            android:name="com.dms.assign2.sms.SmsActivity"
+            android:label="@string/title_activity_sms"
+			android:screenOrientation="portrait" >
         </activity>
     </application>
 
