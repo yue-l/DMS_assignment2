@@ -9,7 +9,7 @@ import android.os.Handler;
 
 import com.dms.assign2.bluetooth.alertdialog.AlertDialogDevicesFound;
 import com.dms.assign2.bluetooth.broadcast.EventsBluetoothReceiver;
-import com.dms.assign2.bluetooth.communication.BluetoothComunication;
+import com.dms.assign2.bluetooth.communication.BluetoothComunicationThread;
 import com.dms.assign2.bluetooth.interfaces.OnBluetoothDeviceSelectedListener;
 import com.dms.assign2.bluetooth.interfaces.OnConnectionBluetoothListener;
 import com.dms.assign2.bluetooth.interfaces.OnSearchBluetoothListener;
@@ -19,22 +19,20 @@ import com.dms.assign2.bluetooth.task.BluetoothServiceTask;
 
 /**
  * 
- * @author Marcus Pimenta
- * @email mvinicius.pimenta@gmail.com
- * @date 19:51:29 05/05/2013
+ * @author yl
  */
-public class ChatBusinessLogic implements OnConnectionBluetoothListener,
+public class BluetoothChatClient implements OnConnectionBluetoothListener,
 		OnBluetoothDeviceSelectedListener, OnSearchBluetoothListener {
 
 	private Context context;
 	private Handler handler;
 
 	private BluetoothManager bluetoothManager;
-	private BluetoothComunication bluetoothComunication;
+	private BluetoothComunicationThread bluetoothComunication;
 	private AlertDialogDevicesFound alertDialogDevicesFound;
 	private EventsBluetoothReceiver eventsBluetoothReceiver;
 
-	public ChatBusinessLogic(Context context, Handler handler) {
+	public BluetoothChatClient(Context context, Handler handler) {
 		this.context = context;
 		this.handler = handler;
 
@@ -71,7 +69,7 @@ public class ChatBusinessLogic implements OnConnectionBluetoothListener,
 	}
 
 	public void starCommunication(BluetoothSocket bluetoothSocket) {
-		bluetoothComunication = new BluetoothComunication(context, handler);
+		bluetoothComunication = new BluetoothComunicationThread(context, handler);
 		bluetoothComunication.setBluetoothSocket(bluetoothSocket);
 		bluetoothComunication.start();
 	}

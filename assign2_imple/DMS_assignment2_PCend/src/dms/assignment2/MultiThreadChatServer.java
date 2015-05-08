@@ -6,18 +6,16 @@ import java.net.Socket;
 import java.net.ServerSocket;
 
 /**
- * Server class, can run under cli environment
+ * Server class, can run under cli environment with threading features
  *
  * @author yl
  */
 public class MultiThreadChatServer {
 
-    private static ServerSocket serverSocket = null;
-    private static Socket clientSocket = null;
-
-    // This chat server can accept up to maxClientsCount clients' connections.
-    private static final int maxClientsLimit = 10;
-    private static final ClientThread[] clientThreads = new ClientThread[maxClientsLimit];
+    private static ServerSocket SERVER_SOCKET = null;
+    private static Socket CLIENT_SOCKET = null;
+    private static final int MAX_CLIENT_LIMIT = 30;
+    private static final ClientThread[] CLIENT_THREADS = new ClientThread[MAX_CLIENT_LIMIT];
 
     public static void main(String args[]) {
 
@@ -36,7 +34,7 @@ public class MultiThreadChatServer {
          * not choose a port less than 1023 if we are not privileged users (root).
          */
         try {
-            serverSocket = new ServerSocket(portNumber);
+            SERVER_SOCKET = new ServerSocket(portNumber);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -44,20 +42,20 @@ public class MultiThreadChatServer {
         // server will listen to connection and disconnection
         while (true) {
             try {
-                clientSocket = serverSocket.accept();
+                CLIENT_SOCKET = SERVER_SOCKET.accept();
                 int i = 0;
-                for (i = 0; i < maxClientsLimit; i++) {
-                    if (clientThreads[i] == null) {
+                for (i = 0; i < MAX_CLIENT_LIMIT; i++) {
+                    if (CLIENT_THREADS[i] == null) {
                         System.out.println("create client thread: " + i);
-                        (clientThreads[i] = new ClientThread(clientSocket, clientThreads)).start();
+                        (CLIENT_THREADS[i] = new ClientThread(CLIENT_SOCKET, CLIENT_THREADS)).start();
                         break;
                     }
                 }
-                if (i == maxClientsLimit) {
-                    PrintStream os = new PrintStream(clientSocket.getOutputStream());
+                if (i == MAX_CLIENT_LIMIT) {
+                    PrintStream os = new PrintStream(CLIENT_SOCKET.getOutputStream());
                     os.println("Server too busy. Try later.");
                     os.close();
-                    clientSocket.close();
+                    CLIENT_SOCKET.close();
                 }
             } catch (IOException e) {
                 System.out.println(e);

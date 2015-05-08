@@ -1,6 +1,6 @@
 package dms.assignment2;
 
-import dms.assignment2.model.ChatAccess;
+import dms.assignment2.model.SocketInputReader;
 import dms.assignment2.view.ChatFrame;
 import javax.swing.JFrame;
 
@@ -14,7 +14,7 @@ public class PcClient {
     public static void main(String[] args) {
         String server = args[0];
         int port = 8083;
-        ChatAccess access = new ChatAccess(server, port);
+        SocketInputReader access = new SocketInputReader(server, port);
         JFrame frame = new ChatFrame(access);
         frame.setTitle("MyChatApp - connected to " + server + ":" + port);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

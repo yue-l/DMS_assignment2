@@ -6,7 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.dms.assign2.bluetooth.communication.BluetoothService;
+import com.dms.assign2.bluetooth.communication.BluetoothConnectService;
 import com.dms.assign2.bluetooth.interfaces.OnConnectionBluetoothListener;
 import com.dms.assign2.bluetooth.util.BluetoothToast;
 import com.dms.client.R;
@@ -22,7 +22,7 @@ public class BluetoothServiceTask extends
 	private ProgressDialog progressDialog;
 
 	private BluetoothToast toastUtil;
-	private BluetoothService bluetoothService;
+	private BluetoothConnectService bluetoothService;
 	private OnConnectionBluetoothListener onBluetoothListener;
 
 	public BluetoothServiceTask(Context context,
@@ -31,7 +31,7 @@ public class BluetoothServiceTask extends
 		this.onBluetoothListener = onBluetoothListener;
 
 		toastUtil = new BluetoothToast(context);
-		bluetoothService = new BluetoothService();
+		bluetoothService = new BluetoothConnectService();
 	}
 
 	@Override

@@ -38,24 +38,20 @@ public class SmsActivity extends Activity {
 		smsBody = (EditText) findViewById(R.id.smsBody);
 		smsManagerBtn = (Button) findViewById(R.id.smsManager);
 		smsSendToBtn = (Button) findViewById(R.id.smsSIntent);
-
 		smsManagerBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				sendSmsByManager();
 			}
 		});
-
 		smsSendToBtn.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				sendSmsBySIntent();
 			}
 		});
-
 	}
 
 	public void sendSmsByManager() {
 		try {
-			// Get the default instance of the SmsManager
 			SmsManager smsManager = SmsManager.getDefault();
 			smsManager.sendTextMessage(phoneNumber.getText().toString(), null,
 					smsBody.getText().toString(), null, null);
@@ -71,7 +67,6 @@ public class SmsActivity extends Activity {
 
 	public void sendSmsBySIntent() {
 		Uri uri = Uri.parse("smsto:" + phoneNumber.getText().toString());
-
 		Intent smsSIntent = new Intent(Intent.ACTION_SENDTO, uri);
 		smsSIntent.putExtra("sms_body", smsBody.getText().toString());
 		try {
@@ -82,6 +77,4 @@ public class SmsActivity extends Activity {
 			ex.printStackTrace();
 		}
 	}
-
-	
 }

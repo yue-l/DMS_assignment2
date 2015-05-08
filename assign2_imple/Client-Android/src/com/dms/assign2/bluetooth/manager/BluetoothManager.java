@@ -4,28 +4,26 @@ import android.bluetooth.BluetoothAdapter;
 
 /**
  * 
- * @author Marcus Pimenta
- * @email mvinicius.pimenta@gmail.com
- * @date 15:24:12 01/06/2013
+ * @author yl
  */
 public class BluetoothManager {
-	
+
 	private BluetoothAdapter bluetoothAdapter;
-	
-	public BluetoothManager(){
-		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); 
+
+	public BluetoothManager() {
+		bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	}
-	
-	public BluetoothAdapter getBluetoothAdapter(){
+
+	public BluetoothAdapter getBluetoothAdapter() {
 		return bluetoothAdapter;
 	}
 
-	public boolean verifySuportedBluetooth(){
+	public boolean verifySuportedBluetooth() {
 		return (bluetoothAdapter != null) ? true : false;
 	}
-	
-	public boolean isEnabledBluetooth(){
+
+	public boolean isEnabledBluetooth() {
 		return bluetoothAdapter.isEnabled();
 	}
-	
+
 }

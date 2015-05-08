@@ -40,21 +40,14 @@ public class ChatRoomActivity extends Activity {
 		mList = (ListView) findViewById(R.id.list);
 		mAdapter = new MyCustomAdapter(this, arrayList);
 		mList.setAdapter(mAdapter);
-
-		// connect to the server
 		new ConnectTask().execute("");
-
 		send.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
 				String message = editText.getText().toString();
-
-				// sends the message to the server
 				if (mClient != null) {
 					mClient.sendMessage(message);
 				}
-				// refresh the list
 				mAdapter.notifyDataSetChanged();
 				editText.setText("");
 			}
@@ -72,8 +65,6 @@ public class ChatRoomActivity extends Activity {
 
 		@Override
 		protected Client doInBackground(String... message) {
-
-			// we create a Client object and
 			mClient = new Client(new Client.OnMessageReceived() {
 				@Override
 				public void messageReceived(String message) {

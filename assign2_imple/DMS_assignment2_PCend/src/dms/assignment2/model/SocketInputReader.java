@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dms.assignment2.model;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.Observable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 /**
  * ChatAcess will notify the changes to View. This is part of Observable and
@@ -20,9 +11,9 @@ import java.util.logging.Logger;
  *
  * @author yue
  */
-public class ChatAccess extends Observable {
+public class SocketInputReader extends Observable {
 
-    private static final String CRLF = "\r\n"; // newline
+    private static final String NEWLINE = "\r\n"; // newline
 
     private Socket socket;
     private OutputStream outputStream;
@@ -33,12 +24,12 @@ public class ChatAccess extends Observable {
      * @param server
      * @param port
      */
-    public ChatAccess(String server, int port) {
+    public SocketInputReader(String server, int port) {
         try {
             socket = new Socket(server, port);
             outputStream = socket.getOutputStream();
         } catch (IOException ex) {
-            Logger.getLogger(ChatAccess.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SocketInputReader.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         Thread receivingThread = new Thread() {
@@ -72,7 +63,7 @@ public class ChatAccess extends Observable {
      */
     public void send(String text) {
         try {
-            outputStream.write((text + CRLF).getBytes());
+            outputStream.write((text + NEWLINE).getBytes());
             outputStream.flush();
         } catch (IOException ex) {
             notifyObservers(ex);

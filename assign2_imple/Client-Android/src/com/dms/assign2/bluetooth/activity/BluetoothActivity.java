@@ -14,11 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.dms.assign2.bluetooth.business.ChatBusinessLogic;
+import com.dms.assign2.bluetooth.business.BluetoothChatClient;
 import com.dms.assign2.bluetooth.util.BluetoothToast;
 import com.dms.client.R;
 
 /**
+ * 
  * 
  * @author yl
  */
@@ -41,7 +42,7 @@ public class BluetoothActivity extends Activity {
 	private ArrayAdapter<String> history;
 
 	private BluetoothToast toastUtil;
-	private ChatBusinessLogic chatBusinessLogic;
+	private BluetoothChatClient chatBusinessLogic;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,6 @@ public class BluetoothActivity extends Activity {
 				case 2:
 					history.add((String) (msg.obj));
 					history.notifyDataSetChanged();
-
 					listVewHistoric.requestFocus();
 					break;
 				}
@@ -111,7 +111,6 @@ public class BluetoothActivity extends Activity {
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
 		switch (requestCode) {
 		case BT_ACTIVATE:
 			if (RESULT_OK != resultCode) {
@@ -120,7 +119,6 @@ public class BluetoothActivity extends Activity {
 				finish();
 			}
 			break;
-
 		case BT_VISIBLE:
 			if (resultCode == BT_TIMER_VISIBLE) {
 
@@ -143,7 +141,7 @@ public class BluetoothActivity extends Activity {
 
 	private void settingsAttributes() {
 		toastUtil = new BluetoothToast(this);
-		chatBusinessLogic = new ChatBusinessLogic(this, handler);
+		chatBusinessLogic = new BluetoothChatClient(this, handler);
 	}
 
 	private void settingsView() {

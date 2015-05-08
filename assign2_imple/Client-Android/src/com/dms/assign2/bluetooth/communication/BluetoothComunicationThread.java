@@ -14,7 +14,7 @@ import com.dms.client.R;
  * 
  * @author yl
  */
-public class BluetoothComunication extends Thread {
+public class BluetoothComunicationThread extends Thread {
 
 	private boolean run;
 
@@ -25,7 +25,7 @@ public class BluetoothComunication extends Thread {
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
 
-	public BluetoothComunication(Context context, Handler handler) {
+	public BluetoothComunicationThread(Context context, Handler handler) {
 		this.context = context;
 		this.handler = handler;
 
@@ -46,10 +46,8 @@ public class BluetoothComunication extends Thread {
 					bluetoothSocket.getInputStream());
 			dataOutputStream = new DataOutputStream(
 					bluetoothSocket.getOutputStream());
-
 			sendHandler(BluetoothActivity.MSG_TOAST,
 					context.getString(R.string.connected_sucessfully));
-
 			while (run) {
 				if (dataInputStream.available() > 0) {
 					byte[] msg = new byte[dataInputStream.available()];
@@ -60,8 +58,6 @@ public class BluetoothComunication extends Thread {
 				}
 			}
 		} catch (IOException e) {
-			// LogUtil.e(e.getMessage());
-
 			Log.e("ERROR", e.getMessage());
 			stopComunication();
 			sendHandler(BluetoothActivity.MSG_TOAST,
@@ -81,7 +77,6 @@ public class BluetoothComunication extends Thread {
 				return false;
 			}
 		} catch (IOException e) {
-			// LogUtil.e(e.getMessage());
 			Log.e("ERROR", e.getMessage());
 
 			sendHandler(BluetoothActivity.MSG_TOAST,
@@ -111,7 +106,6 @@ public class BluetoothComunication extends Thread {
 			}
 		} catch (IOException e) {
 			Log.e("ERROR", e.getMessage());
-			// LogUtil.e(e.getMessage());
 		}
 	}
 

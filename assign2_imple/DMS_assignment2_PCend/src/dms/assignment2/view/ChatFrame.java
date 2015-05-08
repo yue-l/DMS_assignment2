@@ -1,25 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dms.assignment2.view;
 
-import dms.assignment2.model.ChatAccess;
+import dms.assignment2.model.SocketInputReader;
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  * Extended JFrame class, responsible updating lines
@@ -31,9 +17,9 @@ public class ChatFrame extends JFrame implements Observer {
     private JTextArea textArea;
     private JTextField inputTextField;
     private JButton sendButton;
-    private ChatAccess chatAccess;
+    private SocketInputReader chatAccess;
 
-    public ChatFrame(ChatAccess chatAccess) {
+    public ChatFrame(SocketInputReader chatAccess) {
         this.chatAccess = chatAccess;
         chatAccess.addObserver(this);
         buildGUI();
